@@ -186,7 +186,7 @@
                 Navigating="OnRootFrameNavigating" />
             <NavigationView.MenuItems>
                 <NavigationViewItem
-                    x:Name="NewControlsItem"
+                    x:Name="Home"
                     Content="Home"
                     Icon="Home" />
 
