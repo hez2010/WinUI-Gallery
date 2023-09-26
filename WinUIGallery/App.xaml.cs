@@ -73,12 +73,6 @@ namespace AppUIBasics
         {
             this.InitializeComponent();
 
-#if WINUI_PRERELEASE
-            this.Suspending += OnSuspending;
-            this.Resuming += App_Resuming;
-            this.RequiresPointerMode = ApplicationRequiresPointerMode.WhenRequested;
-#endif
-
             if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 6))
             {
                 this.FocusVisualKind = AnalyticsInfo.VersionInfo.DeviceFamily == "Xbox" ? FocusVisualKind.Reveal : FocusVisualKind.HighVisibility;
@@ -134,13 +128,6 @@ namespace AppUIBasics
         {
 
         }
-
-#if WINUI_PRERELEASE
-        protected override void OnActivated(IActivatedEventArgs args)
-        {
-            EnsureWindow(args);
-        }
-#endif
 
         private async void EnsureWindow(IActivatedEventArgs args = null)
         {
@@ -269,21 +256,5 @@ namespace AppUIBasics
         {
             throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
         }
-
-#if WINUI_PRERELEASE
-        /// <summary>
-        /// Invoked when application execution is being suspended.  Application state is saved
-        /// without knowing whether the application will be terminated or resumed with the contents
-        /// of memory still intact.
-        /// </summary>
-        /// <param name="sender">The source of the suspend request.</param>
-        /// <param name="e">Details about the suspend request.</param>
-        private async void OnSuspending(object sender, SuspendingEventArgs e)
-        {
-            var deferral = e.SuspendingOperation.GetDeferral();
-            await SuspensionManager.SaveAsync();
-            deferral.Complete();
-        }
-#endif // WINUI_PRERELEASE
     }
 }
